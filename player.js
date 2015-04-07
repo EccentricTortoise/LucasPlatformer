@@ -2,7 +2,7 @@ var Player = function()
 {
 	this.image = document.createElement("img");
 	
-	this.x = canvas.width/3;
+	this.x = canvas.width/4;
 	this.y = canvas.height/2;
 	
 	this.width = 159;
