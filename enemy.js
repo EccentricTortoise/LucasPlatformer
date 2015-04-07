@@ -18,11 +18,11 @@ var enemy = function()
 	this.image.src = "dragon.png";
 };
 
-Player.prototype.update = function(deltaTime)
+enemy.prototype.update = function(deltaTime)
 {
 	this.rotation -= deltaTime;
 }
-Player.prototype.draw = function()
+enemy.prototype.draw = function()
 {
 	context.save();
 		context.translate(this.x, this.y);
