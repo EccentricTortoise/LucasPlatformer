@@ -42,7 +42,7 @@ var fpsTime = 0;
 
 // load an image to draw
 var chuckNorris = document.createElement("img");
-chuckNorris.src = "hero.fw.png";
+chuckNorris.src = "hero.png";
 
 var keyboard = new Keyboard();
 var player = new Player();
