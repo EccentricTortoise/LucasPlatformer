@@ -49,7 +49,7 @@ Player.prototype.update = function(deltaTime)
 		acceleration.y += playerAccel;
 	}
 	
-	acceleration = acceleration.subtract(this.velocity.multiply.Scalar(playerDrag));
+	//acceleration = acceleration.subtract(this.velocity.multiply.Scalar(playerDrag));
 	
 	this.velocity = this.velocity.add(acceleration.multiplyScalar(deltaTime));
 	this.velocity = this.velocity.add(this.velocity.multiplyScalar(deltaTime));

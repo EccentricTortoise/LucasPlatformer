@@ -14,7 +14,7 @@ var Enemy = function() {
 	
 	this.rotation = 0;
 	
-	this.image.src = "enemy.png";
+	this.image.src = "dragon.png";
 };
 
 Enemy.prototype.update = function(deltaTime)

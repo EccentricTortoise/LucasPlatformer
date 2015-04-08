@@ -34,7 +34,7 @@ var SCREEN_HEIGHT = canvas.height;
 
 var keyboard = new Keyboard();
 var player = new Player();
-var Enemy = new enemy();
+var enemy = new Enemy();
 
 // some variables to calculate the Frames Per Second (FPS - this tells use
 // how fast our game is running, and allows us to make the game run at a 
