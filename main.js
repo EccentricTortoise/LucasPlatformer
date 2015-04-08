@@ -55,6 +55,72 @@ var TILESET_COUNT_Y = 14;
 var tileset = document.createElement("img");
 tileset.src = "tileset.png";
 
+var cells = [];
+
+function initializeCollision() {
+	for ( var layeridx = 0; layeridx < LAYER_COUNT; ++layeridx )
+	{
+		for ( var y = 0 ; y < level1.layers[layeridx].height ; ++y)
+		{
+			
+			cells[layeridx][y] = [];
+			
+			for ( var x = 0 ; x < level1.layers[layeridx].width ; ++x)
+			{
+				if ( level1.layers[layerIdx].data[idx] != 0 )
+				{
+					cells[layerIdx][y][x] = 1;
+					cells[layerIdx][y][x+1] = 1;
+					cells[layerIdx][y-1][x+1] = 1;
+					cells[layerIdx][y-1][x] = 1;
+				}
+				
+				else if (cells[layerIdx][y][x] !=0 )
+				{
+					cells[layerIdx][y][x] = 0;
+				}
+				
+				++idx;
+			}
+		}
+	}
+}
+
+function tileToPixel(tile_coord)
+{
+	return tile_coord * TILE;
+}
+
+function pixelTOTILE(pixel)
+{
+	return Math.floor(pixel / TILE);
+}
+
+
+function cellAtTileCoord(layer, tx, ty)
+{
+	if ( tx < 0 || tx > MAP.tw )
+	{
+		return 1;
+	}
+	
+	if ( ty >= MAP.th )
+	{
+		return 0;
+	}
+	
+	return cells[layer][ty][tx];
+}
+
+function cellAtPixelCoord(layer, x, y)
+{
+	var tx = pixelToTile(x);
+	var ty = pixelToTile(y);
+	
+	return cellAtTileCoord(layer, tx, ty);
+}
+
+
 function drawMap()
 {
 	//this loops over all the layers in our tilemap
@@ -129,35 +195,7 @@ function run()
 	context.fillText("FPS: " + fps, 5, 20, 100);
 }
 
-var cells = [];
-function initialize() {
-	for ( var layeridx = 0; layeridx < LAYER_COUNT; ++layeridx )
-	{
-		for ( var y = 0 ; y < level1.layers[layeridx].height ; ++y)
-		{
-			
-			cells[layeridx][y] = [];
-			
-			for ( var x = 0 ; x < level1.layers[layeridx].width ; ++x)
-			{
-				if ( level1.layers[layerIdx].data[idx] != 0 )
-				{
-					cells[layerIdx][y][x] = 1;
-					cells[layerIdx][y][x+1] = 1;
-					cells[layerIdx][y-1][x+1] = 1;
-					cells[layerIdx][y-1][x] = 1;
-				}
-				
-				else if (cells[layerIdx][y][x] !=0 )
-				{
-					cells[layerIdx][y][x] = 0;
-				}
-				
-				++idx;
-			}
-		}
-	}
-}
+
 
 //-------------------- Don't modify anything below here
 

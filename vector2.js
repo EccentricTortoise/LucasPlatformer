@@ -6,8 +6,10 @@ var Vector2 = function()
 
 Vector2.prototype.add = function( other_vector )
 {
-	this.x + other_vector.x;
-	this.y + other_vector.y;
+	var result = new Vector2();
+	
+	result.x = this.x + other_vector.x;
+	result.y = this.y + other_vector.y;
 	
 	return result;
 }
