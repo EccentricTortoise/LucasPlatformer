@@ -54,14 +54,14 @@ tileset.src = "tileset.png";
 
 function drawMap()
 {
-	for(var layerIdx=0; layerIdx<LAYER_COUNT; layerIdx++)
+	for(var layeridx=0; layerIdx<LAYER_COUNT; ++layeridx)
 	{
 		var idx = 0;
-		for( var y = 0; y < level1.layers[layerIdx].height; y++ )
+		for( var y = 0; y < level1.layers[layeridx].height; ++y )
 		{
-			for( var x = 0; x < level1.layers[layerIdx].width; x++ )
+			for( var x = 0; x < level1.layers[layerIdx].width; ++x )
 			{
-				if( level1.layers[layerIdx].data[idx] != 0 )
+				if( level1.layers[layeridx].data[idx] != 0 )
 				{
 					// the tiles in the Tiled map are base 1 (meaning a value of 0 means no tile), so subtract one from the tileset id to get the
 					// correct tile
@@ -113,6 +113,35 @@ function run()
 	context.fillText("FPS: " + fps, 5, 20, 100);
 }
 
+var cells = [];
+function initialize() {
+	for ( var layeridx = 0; layeridx < LAYER_COUNT; ++layeridx )
+	{
+		for ( var y = 0 ; y < level1.layers[layeridx].height ; ++y)
+		{
+			
+			cells[layeridx][y] = [];
+			
+			for ( var x = 0 ; x < level1.layers[layeridx].width ; ++x)
+			{
+				if ( level1.layers[layerIdx].data[idx] != 0 )
+				{
+					cells[layerIdx][y][x] = 1;
+					cells[layerIdx][y][x+1] = 1;
+					cells[layerIdx][y-1][x+1] = 1;
+					cells[layerIdx][y-1][x] = 1;
+				}
+				
+				else if (cells[layerIdx][y][x] !=0 )
+				{
+					cells[layerIdx][y][x] = 0;
+				}
+				
+				++idx;
+			}
+		}
+	}
+}
 
 //-------------------- Don't modify anything below here
 
