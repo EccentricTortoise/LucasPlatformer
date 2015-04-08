@@ -82,6 +82,7 @@ chuckNorris.src = "hero.png";
 
 var keyboard = new Keyboard();
 var player = new Player();
+var Enemy = new enemy();
 
 
 
