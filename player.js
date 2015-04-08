@@ -19,6 +19,9 @@ Player.prototype.update = function(deltaTime)
 {
 	var acceleration = new Vector2();
 	var playerAccel = 6000;
+	
+	var jumpForce = 50000;
+	
 	var playerDrag = 12;
 	var playerGravity = TILE * 9.8 * 6;
 	
@@ -32,13 +35,10 @@ Player.prototype.update = function(deltaTime)
 	{
 		acceleration.x += playerAccel;
 	}
-	if ( keyboard.isKeyDown(keyboard.KEY_UP) )
+	if ( keyboard.isKeyDown(keyboard.KEY_SPACE) && !this.jumping )
 	{
-		acceleration.y -= playerAccel;
-	}
-	if ( keyboard.isKeyDown(keyboard.KEY_DOWN) )
-	{
-		acceleration.y += playerAccel;
+		acceleration.y -= jumpForce;
+		this.jumping = true;
 	}
 	
 	var dragVector = this.velocity.multiplyScalar(playerDrag);
