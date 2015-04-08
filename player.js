@@ -1,17 +1,27 @@
-var Player = function()
-{
+var Player = function() {
 	this.image = document.createElement("img");
 	
-	this.position = new Vector2();
-	this.position.set(canvas.width / 2, canvas.height/2();
+	//this.x = canvas.width/2;
+	//this.y = canvas.height/2;
 	
-	this.velocity = new Vector2();
+	this.pos = new Vector2();
+	this.pos.set(canvas.width/2, canvas.height/2);
 	
 	this.width = 159;
 	this.height = 163;
 	
-	this.angularVelocity = 0;	
+	//this.dis = new Vector2();
+	//this.dis.set(159, 163);
+	
+	//this.velocityX = 0;
+	//this.velocityY = 0;
+	
+	this.vel = new Vector2();
+	
+	this.angularVelocity = 0;
+	
 	this.rotation = 0;
+	
 	this.image.src = "hero.png";
 };
 

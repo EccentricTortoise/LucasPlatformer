@@ -1,13 +1,12 @@
-var enemy = function()
-{
+var Enemy = function() {
 	this.image = document.createElement("img");
 	
-	this.x = canvas.width/2;
+	this.x = canvas.width/1.2;
 	this.y = canvas.height/2;
 	
-	this.width = 192;
-	this.height = 199;
-	
+	this.width = 159;
+	this.height = 163;
+
 	this.velocityX = 0;
 	this.velocityY = 0;
 	
@@ -15,26 +14,28 @@ var enemy = function()
 	
 	this.rotation = 0;
 	
-	this.image.src = "dragon.png";
+	this.image.src = "enemy.png";
 };
 
-enemy.prototype.update = function(deltaTime)
+Enemy.prototype.update = function(deltaTime)
 {
-	if (keyboard.isKeyDown(keyboard.KEY_SPACE))
-	{
-		this.rotation += deltaTime;
-	}
-	else
+	if ( keyboard.isKeyDown(keyboard.KEY_SPACE) )
 	{
 		this.rotation -= deltaTime;
 	}
+	else
+	{
+		this.rotation += deltaTime;
+	}
 }
-enemy.prototype.draw = function()
+
+Enemy.prototype.draw = function()
 {
 	context.save();
+	
 		context.translate(this.x, this.y);
 		context.rotate(this.rotation);
 		context.drawImage(this.image, -this.width/2, -this.height/2);
-	
-	context.restore();
+		
+	context.restore();	
 }

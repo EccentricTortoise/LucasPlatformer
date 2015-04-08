@@ -32,6 +32,9 @@ function getDeltaTime()
 var SCREEN_WIDTH = canvas.width;
 var SCREEN_HEIGHT = canvas.height;
 
+var keyboard = new Keyboard();
+var player = new Player();
+var Enemy = new enemy();
 
 // some variables to calculate the Frames Per Second (FPS - this tells use
 // how fast our game is running, and allows us to make the game run at a 
@@ -54,41 +57,54 @@ tileset.src = "tileset.png";
 
 function drawMap()
 {
-	for(var layeridx=0; layerIdx<LAYER_COUNT; ++layeridx)
+	//this loops over all the layers in our tilemap
+	for(var layerIdx = 0; layerIdx < LAYER_COUNT; layerIdx++ )
 	{
+		//render everything in the current layer (layerIdx)
+		//look at every tile in the layer in turn and render them
+		
 		var idx = 0;
-		for( var y = 0; y < level1.layers[layeridx].height; ++y )
+		//look at each row
+		for ( var y = 0 ; y < level1.layers[layerIdx].height ; ++y )
 		{
-			for( var x = 0; x < level1.layers[layerIdx].width; ++x )
+			//look at each tile in the row
+			for ( var x = 0 ; x < level1.layers[layerIdx].width ; ++x )
 			{
-				if( level1.layers[layeridx].data[idx] != 0 )
+				var tileIndex = level1.layers[layerIdx].data[idx] - 1;
+				
+				//if there's actually a tile here
+				if ( tileIndex != -1 )
 				{
-					// the tiles in the Tiled map are base 1 (meaning a value of 0 means no tile), so subtract one from the tileset id to get the
-					// correct tile
-					var tileIndex = level1.layers[layerIdx].data[idx] - 1;
-					var sx = TILESET_PADDING + (tileIndex % TILESET_COUNT_X) * (TILESET_TILE + TILESET_SPACING);
-					var sy = TILESET_PADDING + (Math.floor(tileIndex / TILESET_COUNT_Y)) * (TILESET_TILE + TILESET_SPACING);
-					context.drawImage(tileset, sx, sy, TILESET_TILE, TILESET_TILE, x*TILE, (y-1)*TILE, TILESET_TILE, TILESET_TILE);
+					//draw the current tile at the current location
+					
+					//where in the tilemap is the current tile?
+					//where in the world should the current tile go?
+					
+					//source x in the tileset
+					var sx = TILESET_PADDING + (tileIndex % TILESET_COUNT_X) * 
+										(TILESET_TILE + TILESET_SPACING);
+							
+					//source y in the tileset		
+					var sy = TILESET_PADDING + (Math.floor(tileIndex / TILESET_COUNT_Y)) * 
+												(TILESET_TILE + TILESET_SPACING);
+					
+					//destination x on the canvas
+					var dx = x * TILE;
+					//destination y on the canvas
+					var dy = (y-17) * TILE;
+					
+					context.drawImage(tileset, sx, sy, TILESET_TILE, TILESET_TILE,
+												dx, dy, TILESET_TILE, TILESET_TILE);
 				}
-				idx++;
+				++idx;
 			}
 		}
 	}
 }
 
-// load an image to draw
-var chuckNorris = document.createElement("img");
-chuckNorris.src = "hero.png";
-
-var keyboard = new Keyboard();
-var player = new Player();
-var Enemy = new enemy();
-
-
-
 function run()
 {
-	context.fillStyle = "#ccc";		
+	context.fillStyle = "#8ebbeb";		
 	context.fillRect(0, 0, canvas.width, canvas.height);
 	
 	var deltaTime = getDeltaTime();
