@@ -51,6 +51,24 @@ var TILESET_PADDING = 2;
 var TILESET_SPACING = 2;
 var TILESET_COUNT_X = 14;
 var TILESET_COUNT_Y = 14;
+var LAYER_BACKGROUND = 0;
+var LAYER_PLATFORMS = 1;
+var LAYER_LADDERS = 2;
+
+	// arbitrary choice for 1m
+var METER = TILE;
+	// VERY exaggerated gravity (6x)
+var GRAVITY = METER * 9.8 * 6;
+	// max horizontal speed (10 tiles per second)
+var MAXDX = METER * 10;
+	// horizontal acceleration - take 1/2 seconds to reach maxdx
+var MAXDY = METER * 15;
+	// horizontal friction - take 1/6 second to stop from maxdx
+var ACCEL = MAXDX * 2;
+	// a large instantaneous jump impulse
+var FRICTION = MAXDX * 6;
+
+var JUMP = METER * 1500;
 
 var tileset = document.createElement("img");
 tileset.src = "tileset.png";
@@ -198,6 +216,7 @@ function run()
 	context.fillText("FPS: " + fps, 5, 20, 100);
 }
 
+initializeCollision();
 
 
 //-------------------- Don't modify anything below here
