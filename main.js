@@ -46,7 +46,7 @@ var TILE = 35;
 var TILESET_TILE = 70;
 var TILESET_PADDING = 2;
 var TILESET_SPACING = 2;
-var TILESET COUNT_X = 14;
+var TILESET_COUNT_X = 14;
 var TILESET_COUNT_Y = 14;
 
 var tileset = document.createElement("img");
