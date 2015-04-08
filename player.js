@@ -3,7 +3,7 @@ var Player = function()
 	this.image = document.createElement("img");
 	
 	this.position = new Vector2();
-	this.position.set(canvas.width / 2, canvas.height/2;
+	this.position.set(canvas.width / 2, canvas.height/2();
 	
 	this.velocity = new Vector2();
 	
@@ -20,6 +20,7 @@ Player.prototype.update = function(deltaTime)
 	var acceleration = new Vector2();
 	var playerAccel = 1000;
 	var playerDrag = 20;
+	var playerGravity = TILE * 9.8 * 6;
 	
 	if ( keyboard .isKeyDown(keyboard.KEY_LEFT) )
 	{
