@@ -1,14 +1,16 @@
-var Keyboard = function() {
+var Keyboard = function() 
+{
 	var self = this;
 	
-	window.addEventListener('keydown', function(evt) { self.onKeyDown(evt); }, false);
-	window.addEventListener('keyup', function(evt) { self.onKeyUp(evt); }, false);
+	//these set it up so that our onKeyDown and onKeyUp function get called when
+	//keys are pressed and released.
+	window.addEventListener('keydown', function(evt) {self.onKeyDown(evt);}, false);
+	window.addEventListener('keyup', function(evt) {self.onKeyUp(evt);}, false);
 	
-	this.keyListeners = new Array();
 	this.keys = new Array();
 	
-	// Key constants. Go to the site below for key codes list:
-	// https://developer.mozilla.org/en-US/docs/DOM/KeyboardEvent
+	//go to https://developer.mozilla.org/en-US/docs/DOM/KeyboardEvent to find more key
+	//constants
 	this.KEY_SPACE = 32;
 	this.KEY_LEFT = 37;
 	this.KEY_UP = 38;
