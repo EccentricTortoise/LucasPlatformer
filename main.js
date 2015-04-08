@@ -157,7 +157,7 @@ function drawMap()
 					//destination x on the canvas
 					var dx = x * TILE;
 					//destination y on the canvas
-					var dy = (y-17) * TILE;
+					var dy = (y-1) * TILE;
 					
 					context.drawImage(tileset, sx, sy, TILESET_TILE, TILESET_TILE,
 												dx, dy, TILESET_TILE, TILESET_TILE);
@@ -174,6 +174,9 @@ function run()
 	context.fillRect(0, 0, canvas.width, canvas.height);
 	
 	var deltaTime = getDeltaTime();
+	
+	
+	drawMap();
 	
 	//context.drawImage(chuckNorris, SCREEN_WIDTH/2 - chuckNorris.width/2, SCREEN_HEIGHT/2 - chuckNorris.height/2);
 	player.update(deltaTime);

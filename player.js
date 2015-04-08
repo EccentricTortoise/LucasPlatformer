@@ -47,15 +47,15 @@ Player.prototype.update = function(deltaTime)
 	
 	this.velocity = this.velocity.add(acceleration.multiplyScalar(deltaTime));
 	this.position = this.position.add(this.velocity.multiplyScalar(deltaTime));
+		
 	
-	var tx = pixelToTile(this.position.x);
-	var ty = pixelToTile(this.position.y);
-	
-	
-	var cell = cellAtTileCoord(LAYER_PLATFORMS, tx, ty);
-	var cell_right = cellAtTileCoord(LAYER_PLATFORMS, tx+1, ty);
-	var cell_down = cellAtTileCoord(LAYER_PLATFORMS, tx, ty+1);
-	var cell_diag = cellAtTileCoord(LAYER_PLATFORMS, tx+1, ty+1);
+	//var tx = pixelToTile(this.position.x);
+	//var ty = pixelToTile(this.position.y);
+
+	//var cell = cellAtTileCoord(LAYER_PLATFORMS, tx, ty);
+	//var cell_right = cellAtTileCoord(LAYER_PLATFORMS, tx+1, ty);
+	//var cell_down = cellAtTileCoord(LAYER_PLATFORMS, tx, ty+1);
+	//var cell_diag = cellAtTileCoord(LAYER_PLATFORMS, tx+1, ty+1);
 	
 	
 	
