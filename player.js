@@ -35,11 +35,20 @@ Player.prototype.update = function(deltaTime)
 	{
 		acceleration.x += playerAccel;
 	}
+	if ( keyboard.isKeyDown(keyboard.KEY_UP) )
+	{
+		acceleration.y -= playerAccel;
+	}
+	if ( keyboard.isKeyDown(keyboard.KEY_DOWN) )
+	{
+		acceleration.y += playerAccel;
+	}
 	if ( keyboard.isKeyDown(keyboard.KEY_SPACE) && !this.jumping )
 	{
 		acceleration.y -= jumpForce;
 		this.jumping = true;
 	}
+	
 	
 	var dragVector = this.velocity.multiplyScalar(playerDrag);
 	dragVector.y = 0;
