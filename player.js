@@ -3,7 +3,7 @@ var Player = function()
 	this.image = document.createElement("img");
 	
 	this.x = canvas.width/4;
-	this.y = canvas.height/2;
+	this.y = canvas.height/3;
 	
 	this.width = 159;
 	this.height = 163;

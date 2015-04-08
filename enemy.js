@@ -20,7 +20,14 @@ var enemy = function()
 
 enemy.prototype.update = function(deltaTime)
 {
-	this.rotation -= deltaTime;
+	if (keyboard.isKeyDown(keyboard.KEY_SPACE))
+	{
+		this.rotation += deltaTime;
+	}
+	else
+	{
+		this.rotation -= deltaTime;
+	}
 }
 enemy.prototype.draw = function()
 {
