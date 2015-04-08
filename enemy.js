@@ -5,8 +5,8 @@ var enemy = function()
 	this.x = canvas.width/2;
 	this.y = canvas.height/2;
 	
-	this.width = 159;
-	this.height = 163;
+	this.width = 192;
+	this.height = 199;
 	
 	this.velocityX = 0;
 	this.velocityY = 0;
