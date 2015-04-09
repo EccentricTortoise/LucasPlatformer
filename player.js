@@ -64,7 +64,7 @@ Player.prototype.update = function(deltaTime)
 	this.sprite.update(deltaTime);
 	
 	var acceleration = new Vector2();
-	var playerAccel = 6000;
+	var playerAccel = 3250;
 	
 	var jumpForce = 50000;
 	
