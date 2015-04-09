@@ -7,8 +7,8 @@ var Player = function()
 	
 	this.velocity = new Vector2();
 	
-	this.width = 159;
-	this.height = 163;
+	this.width = 165;
+	this.height = 125;
 	
 	this.angularVelocity = 0;
 	this.rotation = 0;
@@ -59,11 +59,16 @@ Player.prototype.update = function(deltaTime)
 	this.velocity = this.velocity.add(acceleration.multiplyScalar(deltaTime));
 	this.position = this.position.add(this.velocity.multiplyScalar(deltaTime));
 	
-	var tx = pixelToTile(this.position.x);
-	var ty = pixelToTile(this.position.y);
+	var collisionOffset = new Vector2();
+	collisionOffset.set(-TILE/2, this.height/2 - TILE);
 	
-	var nx = this.position.x % TILE;
-	var ny = this.position.y % TILE;
+	var collisionPos = this.position.add(collisionOffset);
+	
+	var tx = pixelToTile(collisionPos.x);
+	var ty = pixelToTile(collisionPos.y);
+	
+	var nx = collisionPos.x % TILE;
+	var ny = collisionPos.y % TILE;
 	
 	var cell = cellAtTileCoord(LAYER_PLATFORMS, tx, ty);
 	var cell_right = cellAtTileCoord(LAYER_PLATFORMS, tx+1, ty);
@@ -75,7 +80,7 @@ Player.prototype.update = function(deltaTime)
 	{
 		if ( (cell_down && !cell) || (cell_diag && !cell_right && nx) )
 		{
-			this.position.y = tileToPixel(ty);
+			this.position.y = tileToPixel(ty) - collisionOffset.y;
 			this.velocity.y = 0;
 			ny = 0;
 			this.jumping = false
@@ -85,7 +90,7 @@ Player.prototype.update = function(deltaTime)
 	{
 		if ( (cell && !cell_down) || (cell_right && !cell_diag && nx) )
 		{
-			this.position.y =  tileToPixel(ty + 1);
+			this.position.y =  tileToPixel(ty + 1) - collisionOffset.y;
 			this.velocity.y = 0;
 			
 			cell = cell_down;
@@ -102,7 +107,7 @@ Player.prototype.update = function(deltaTime)
 	{
 		if ( (cell_right && !cell) || (cell_diag && !cell_down && ny) )
 		{
-			this.position.x = tileToPixel(tx);
+			this.position.x = tileToPixel(tx) - collisionOffset.x;
 			this.velocity.x = 0;
 		}
 	}
@@ -110,7 +115,7 @@ Player.prototype.update = function(deltaTime)
 	{
 		if ( (cell && !cell_right) || (cell_down && !cell_diag && ny) )
 		{
-			this.position.x = tileToPixel(tx+1);
+			this.position.x = tileToPixel(tx+1) - collisionOffset.x;
 			this.velocity.x = 0;
 		}
 	}

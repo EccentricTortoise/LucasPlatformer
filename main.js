@@ -22,8 +22,8 @@ function getDeltaTime()
 	var deltaTime = (startFrameMillis - endFrameMillis) * 0.001;
 	
 		// validate that the delta is within range
-	if(deltaTime > 1)
-		deltaTime = 1;
+	if(deltaTime > 0.03)
+		deltaTime = 0.03;
 		
 	return deltaTime;
 }
