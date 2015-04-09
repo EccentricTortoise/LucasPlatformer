@@ -20,12 +20,14 @@ var Player = function()
 		[60,61,62,63,64]);// right jump animation
 		
 	this.sprite.buildAnimation(12, 8, 165, 126, 0.05,
-		[65,66,67,68,69,,70,71,72,73,74,75,76,77,78]);// right walking animation
-	
+		[65,66,67,68,69,70,71,72,73,74,75,76,77,78]);// right walking animation
+		
+	this.width = 165;
+	this.height = 125;
+		
 	for ( var i = 0 ; i < ANIM_MAX ; ++i)
 	{
-		this.sprite.setAnimationOffset(i
-								-this.
+		this.sprite.setAnimationOffset(i, -this.width/2, -this.height/2);
 	}
 	
 	this.position = new Vector2();
@@ -33,11 +35,28 @@ var Player = function()
 	
 	this.velocity = new Vector2();
 	
-	this.width = 165;
-	this.height = 125;
+
 	
 	this.angularVelocity = 0;
 };
+
+Player.prototype.changeDirectionalAnimation = function(leftAnim, rightAnim)
+{
+	if ( this.direction == LEFT)
+	{
+		if ( this.sprite.currentAnimation != leftAnim )
+		{
+			this.sprite.setAnimation(leftAnim );
+		}
+	}
+	else if ( this.direction == RIGHT )
+	{
+		if ( this.sprite.currentAnimation != rightAnim )
+		{
+			this.sprite.setAnimation(rightAnim);
+		}
+	}
+}
 
 Player.prototype.update = function(deltaTime)
 {
@@ -54,13 +73,31 @@ Player.prototype.update = function(deltaTime)
 	
 	acceleration.y = playerGravity;
 	
-	if ( keyboard.isKeyDown(keyboard.KEY_A) )
-	{
+	if ( keyboard.isKeyDown(keyboard.KEY_A) == true) {
+		left = true;
+		this.direction = LEFT;
 		acceleration.x -= playerAccel;
+		if(this.sprite.currentAnimation != ANIM_WALK_LEFT)
+			this.sprite.setAnimation(ANIM_WALK_LEFT);
 	}
-	if ( keyboard.isKeyDown(keyboard.KEY_D) )
-	{
+	else if ( keyboard.isKeyDown(keyboard.KEY_D) == true) {
+		right = true;
 		acceleration.x += playerAccel;
+		this.direction = RIGHT;
+		if(this.sprite.currentAnimation != ANIM_WALK_RIGHT)
+			this.sprite.setAnimation(ANIM_WALK_RIGHT);
+	}
+	else {
+		if(this.direction == LEFT)
+		{
+			if(this.sprite.currentAnimation != ANIM_IDLE_LEFT)
+			this.sprite.setAnimation(ANIM_IDLE_LEFT);
+		}
+		else
+		{
+			if(this.sprite.currentAnimation != ANIM_IDLE_RIGHT)
+			this.sprite.setAnimation(ANIM_IDLE_RIGHT);
+		}
 	}
 	
 	if ( this.velocity.y > 0 )
@@ -76,6 +113,10 @@ Player.prototype.update = function(deltaTime)
 	{
 		acceleration.y -= jumpForce;
 		this.jumping = true;
+		if(this.direction == LEFT)
+			this.sprite.setAnimation(ANIM_JUMP_LEFT)
+		else
+			this.sprite.setAnimation(ANIM_JUMP_RIGHT)
 	}
 	
 	
@@ -85,6 +126,22 @@ Player.prototype.update = function(deltaTime)
 	
 	this.velocity = this.velocity.add(acceleration.multiplyScalar(deltaTime));
 	this.position = this.position.add(this.velocity.multiplyScalar(deltaTime));
+	
+	if ( this.jumping || this.falling )
+	{
+		this.changeDirectionalAnimation(ANIM_JUMP_LEFT, ANIM_JUMP_RIGHT);
+	}
+	else
+	{
+		if ( Math.abs(this.velocity.x) > 25)
+		{
+			this.changeDirectionalAnimation(ANIM_WALK_LEFT, ANIM_WALK_RIGHT);
+		}
+		else
+		{
+			this.changeDirectionalAnimation(ANIM_IDLE_LEFT, ANIM_IDLE_RIGHT);
+		}
+	}
 	
 	var collisionOffset = new Vector2();
 	collisionOffset.set(-TILE/2, this.height/2 - TILE);
