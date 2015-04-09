@@ -157,7 +157,6 @@ function drawMap()
 		alert("ADD 'level1' TO JSON FILE");
 	}
 
-
 	//this loops over all the layers in our tilemap
 	for (var layerIdx = 0 ; layerIdx < LAYER_COUNT ; ++layerIdx )
 	{
@@ -206,7 +205,7 @@ var player = new Player();
 
 function run()
 {
-	context.fillStyle = "#ccc";		
+	context.fillStyle = "#8ebbeb";		
 	context.fillRect(0, 0, canvas.width, canvas.height);
 	
 	var deltaTime = getDeltaTime();

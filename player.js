@@ -27,23 +27,25 @@ Player.prototype.update = function(deltaTime)
 	
 	acceleration.y = playerGravity;
 	
-	if ( keyboard.isKeyDown(keyboard.KEY_LEFT) )
+	if ( keyboard.isKeyDown(keyboard.KEY_A) )
 	{
 		acceleration.x -= playerAccel;
 	}
-	if ( keyboard.isKeyDown(keyboard.KEY_RIGHT) )
+	if ( keyboard.isKeyDown(keyboard.KEY_D) )
 	{
 		acceleration.x += playerAccel;
 	}
-	if ( keyboard.isKeyDown(keyboard.KEY_UP) )
+	
+	if ( this.velocity.y > 0 )
 	{
-		acceleration.y -= playerAccel;
+		this.falling = true;
 	}
-	if ( keyboard.isKeyDown(keyboard.KEY_DOWN) )
+	else
 	{
-		acceleration.y += playerAccel;
+		this.falling = false;
 	}
-	if ( keyboard.isKeyDown(keyboard.KEY_SPACE) && !this.jumping )
+	
+	if ( keyboard.isKeyDown(keyboard.KEY_SPACE) && !this.jumping && !this.falling )
 	{
 		acceleration.y -= jumpForce;
 		this.jumping = true;
