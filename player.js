@@ -3,7 +3,7 @@ var Player = function()
 	this.image = document.createElement("img");
 	
 	this.position = new Vector2();
-	this.position.set(canvas.width / 3, canvas.height/4);
+	this.position.set(canvas.width / 7, canvas.height/1.5);
 	
 	this.velocity = new Vector2();
 	
@@ -76,6 +76,7 @@ Player.prototype.update = function(deltaTime)
 			this.position.y = tileToPixel(ty);
 			this.velocity.y = 0;
 			ny = 0;
+			this.jumping = false
 		}
 	}
 	else if (this.velocity.y < 0 ) //if moving up
