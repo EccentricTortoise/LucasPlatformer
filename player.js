@@ -45,7 +45,7 @@ Player.prototype.update = function(deltaTime)
 		this.falling = false;
 	}
 	
-	if ( keyboard.isKeyDown(keyboard.KEY_SPACE) && !this.jumping && !this.falling )
+	if ( keyboard.isKeyDown(keyboard.KEY_W) && !this.jumping && !this.falling )
 	{
 		acceleration.y -= jumpForce;
 		this.jumping = true;
