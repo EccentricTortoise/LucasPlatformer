@@ -5,6 +5,11 @@ var context = canvas.getContext("2d");
 var startFrameMillis = Date.now();
 var endFrameMillis = Date.now();
 
+var STATE_GAME = 0;
+var STATE_GAMEOVER = 1;
+
+var gameState = STATE_GAME;
+
 // This function will return the time in seconds since the function 
 // was last called
 // You should only call this function once per frame
@@ -203,14 +208,10 @@ function drawMap(offsetX, offsetY)
 var keyboard = new Keyboard();
 var player = new Player();
 
-function run()
+var gameTimer = 50;
+function runGame(deltaTime)
 {
-	context.fillStyle = "#8ebbeb";		
-	context.fillRect(0, 0, canvas.width, canvas.height);
-	
-	var deltaTime = getDeltaTime();
-	
-	var xScroll = player.position.x - player.startPos.x;
+		var xScroll = player.position.x - player.startPos.x;
 	var yScroll = player.position.y - player.startPos.y;
 	
 	if ( xScroll < 0 )
@@ -244,6 +245,40 @@ function run()
 	context.fillStyle = "#f00";
 	context.font="14px Arial";
 	context.fillText("FPS: " + fps, 5, 20, 100);
+	
+	gameTimer -= deltaTime;
+	if(gameTimer <= 0)
+	{
+		gameState = STATE_GAMEOVER;
+		return;
+	}
+}
+
+function runGameOver(deltaTime)
+{
+	context.fillStyle = "#000";
+	
+	context.fillStyle = "#f00";
+	context.font="50px Arial";
+	context.fillText("...You failed...", 400, 480);
+}
+
+function run()
+{
+	context.fillStyle = "#8ebbeb";		
+	context.fillRect(0, 0, canvas.width, canvas.height);
+	
+	var deltaTime = getDeltaTime();
+	
+	switch(gameState)
+	{
+		case STATE_GAME:
+			runGame(deltaTime);
+			break;
+		case STATE_GAMEOVER:
+			runGameOver(deltaTime);
+			break;
+	}
 }
 
 
