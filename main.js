@@ -150,20 +150,7 @@ function cellAtPixelCoord(layer, x, y)
 	return cellAtTileCoord(layer, tx, ty);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-function drawMap()
+function drawMap(offsetX, offsetY)
 {
 	if (typeof(level1) === "undefined" )
 	{
@@ -200,9 +187,9 @@ function drawMap()
 					var sy = TILESET_PADDING + (Math.floor(tileIndex / TILESET_COUNT_X)) * 
 												(TILESET_TILE + TILESET_SPACING);
 					//destination x on the canvas
-					var dx = x * TILE;
+					var dx = x * TILE - offsetX;
 					//destination y on the canvas
-					var dy = (y-1) * TILE;
+					var dy = (y-1) * TILE - offsetY;
 					
 					context.drawImage(tileset, sx, sy, TILESET_TILE, TILESET_TILE, 
 											   dx, dy, TILESET_TILE, TILESET_TILE);
@@ -223,10 +210,23 @@ function run()
 	
 	var deltaTime = getDeltaTime();
 	
-	drawMap();
+	var xScroll = player.position.x - player.startPos.x;
+	var yScroll = player.position.y - player.startPos.y;
+	
+	if ( xScroll < 0 )
+		xScroll = 0;
+	if ( xScroll > MAP.tw * TILE - canvas.width)
+		xScroll = MAP.tw * TILE - canvas.width;
+	
+	if ( yScroll < 0 )
+		yScroll = 0;
+	if ( yScroll > MAP.th* TILE - canvas.height)
+		yScroll = MAP.th * TILE - canvas.height;
+	
+	drawMap(xScroll,yScroll);
 	
 	player.update(deltaTime);
-	player.draw();
+	player.draw(xScroll,yScroll);
 	
 	
 		

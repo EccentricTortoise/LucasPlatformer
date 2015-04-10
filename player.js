@@ -30,14 +30,26 @@ var Player = function()
 		this.sprite.setAnimationOffset(i, -this.width/2, -this.height/2);
 	}
 	
+	this.startPos = new Vector2();
+	this.startPos.set(600, 250);
+	
 	this.position = new Vector2();
-	this.position.set(canvas.width / 7, canvas.height/1.5);
+	this.position.set(this.startPos.x, this.startPos.y);
+	
+	this.position = new Vector2();
+	this.position.set(canvas.width / 7, canvas.height/1.0011111111);
 	
 	this.velocity = new Vector2();
 	
 
 	
 	this.angularVelocity = 0;
+	
+	
+	this.health = 5;
+	
+	this.heartImage = document.createElement("img");
+	this.heartImage.src = "heart.png";
 };
 
 Player.prototype.changeDirectionalAnimation = function(leftAnim, rightAnim)
@@ -205,8 +217,14 @@ Player.prototype.update = function(deltaTime)
 	}
 }
 
-Player.prototype.draw = function()
+Player.prototype.draw = function(offsetX, offsetY)
 {
-	this.sprite.draw(context, this.position.x, this.position.y);
+	this.sprite.draw(context, this.position.x - offsetX, this.position.y - offsetY);
+	
+	
+	for ( var h = 0 ; h < this.health ; ++h)
+	{
+		context.drawImage(this.heartImage, 15 + 55*h, 19);
+	}
 }
 
