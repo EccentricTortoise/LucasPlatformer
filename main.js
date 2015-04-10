@@ -44,7 +44,7 @@ var fpsTime = 0;
 var LAYER_COUNT = 3;
 
 //SET THESE TO HOW BIG YOUR MAP IS tw is width and th is height
-var MAP = { tw:60, th:15 }; 
+var MAP = { tw:80, th:30 }; 
 
 var TILE = 35;
 var TILESET_TILE = 70;
