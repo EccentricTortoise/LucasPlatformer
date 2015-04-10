@@ -10,6 +10,15 @@ var STATE_GAMEOVER = 1;
 
 var gameState = STATE_GAME;
 
+var bgMusic = new Howl(
+	{
+		urls:["background.ogg"],
+		loop:true,
+		buffer:true,
+		volume:0.5
+	});
+bgMusic.play();
+
 // This function will return the time in seconds since the function 
 // was last called
 // You should only call this function once per frame
@@ -229,8 +238,6 @@ function runGame(deltaTime)
 	player.update(deltaTime);
 	player.draw(xScroll,yScroll);
 	
-	
-		
 	// update the frame counter 
 	fpsTime += deltaTime;
 	fpsCount++;
