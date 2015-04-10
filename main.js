@@ -7,8 +7,10 @@ var endFrameMillis = Date.now();
 
 var STATE_GAME = 0;
 var STATE_GAMEOVER = 1;
+var STATE_WIN = 3;
+var STATE_SPLASH = 4;
 
-var gameState = STATE_GAME;
+var gameState = STATE_SPLASH;
 
 var bgMusic = new Howl(
 	{
@@ -18,6 +20,7 @@ var bgMusic = new Howl(
 		volume:0.5
 	});
 bgMusic.play();
+
 
 // This function will return the time in seconds since the function 
 // was last called
@@ -217,9 +220,13 @@ function drawMap(offsetX, offsetY)
 var keyboard = new Keyboard();
 var player = new Player();
 
-var gameTimer = 50;
+var gameTimer = 30;
 function runGame(deltaTime)
 {
+	
+	context.fillStyle = "#8ebbeb";		
+	context.fillRect(0, 0, canvas.width, canvas.height);
+	
 		var xScroll = player.position.x - player.startPos.x;
 	var yScroll = player.position.y - player.startPos.y;
 	
@@ -253,6 +260,12 @@ function runGame(deltaTime)
 	context.font="14px Arial";
 	context.fillText("FPS: " + fps, 5, 20, 100);
 	
+	if (player.position.x >= 2727 && player.position.y >= 497)
+	{
+		gameState = STATE_WIN;
+		return;
+	}
+	
 	gameTimer -= deltaTime;
 	if(gameTimer <= 0)
 	{
@@ -263,17 +276,49 @@ function runGame(deltaTime)
 
 function runGameOver(deltaTime)
 {
-	context.fillStyle = "#000";
+	bgMusic.stop();
+	
+	context.fillStyle = "#000";		
+	context.fillRect(0, 0, canvas.width, canvas.height);
 	
 	context.fillStyle = "#f00";
-	context.font="50px Arial";
-	context.fillText("...You failed...", 400, 480);
+	context.font="100px Arial";
+	context.fillText("...You failed...", 300, 400);
+	
+}
+
+function runWin(deltaTime)
+{
+	bgMusic.stop();
+	
+	context.fillStyle = "#8ebbeb"
+	context.fillRect(0,0, canvas.width, canvas.height);
+	
+	context.fillStyle = "#66ba5a";
+	context.font="100px Arial";
+	context.fillText("Success", 300, 400);
+}
+
+var splashTimer = 5;
+function runSplash(deltaTime)
+{
+	context.fillStyle = "#66ba5a";
+	context.fillRect(0, 0, canvas.width, canvas.height);
+	
+	context.fillstyle = "#000";
+	context.font="100px Arial";
+	context.fillText("LOADING", 300, 400);
+	
+	splashTimer -= deltaTime;
+	if(splashTimer <= 0)
+	{
+		gameState = STATE_GAME;
+		return;
+	}
 }
 
 function run()
 {
-	context.fillStyle = "#8ebbeb";		
-	context.fillRect(0, 0, canvas.width, canvas.height);
 	
 	var deltaTime = getDeltaTime();
 	
@@ -285,6 +330,11 @@ function run()
 		case STATE_GAMEOVER:
 			runGameOver(deltaTime);
 			break;
+		case STATE_WIN:
+			runWin(deltaTime);
+			break;
+		case STATE_SPLASH:
+			runSplash(deltaTime);
 	}
 }
 

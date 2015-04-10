@@ -46,7 +46,7 @@ var Player = function()
 	this.angularVelocity = 0;
 	
 	
-	this.health = 5;
+	this.health = 3;
 	
 	this.heartImage = document.createElement("img");
 	this.heartImage.src = "heart.png";
@@ -72,7 +72,6 @@ Player.prototype.changeDirectionalAnimation = function(leftAnim, rightAnim)
 
 Player.prototype.update = function(deltaTime)
 {
-	
 	this.sprite.update(deltaTime);
 	
 	var acceleration = new Vector2();
@@ -215,7 +214,14 @@ Player.prototype.update = function(deltaTime)
 			this.velocity.x = 0;
 		}
 	}
+	if ( this.position.y > MAP.th * TILE + this.height)
+	{
+		this.position.set(this.startPos.x, this.startPos.y);
+		this.velocity.set(0,0);
+		this.health - 1;
+	}
 }
+
 
 Player.prototype.draw = function(offsetX, offsetY)
 {
